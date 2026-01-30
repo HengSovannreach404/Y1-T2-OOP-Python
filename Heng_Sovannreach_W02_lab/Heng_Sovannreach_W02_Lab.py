@@ -84,8 +84,7 @@ GPS = (('Phnom Penh', 11.5564, 104.9282),
 
 
 for slot in range(len(GPS)):
-    i = 0
-    print(f'City: {GPS[slot][i]}, Latitude: {GPS[slot][i + 1]}, Longitude: {GPS[slot][i + 2]}')
+    print(f'City: {GPS[slot][0]}, Latitude: {GPS[slot][1]}, Longitude: {GPS[slot][2]}')
 
 
 '''
