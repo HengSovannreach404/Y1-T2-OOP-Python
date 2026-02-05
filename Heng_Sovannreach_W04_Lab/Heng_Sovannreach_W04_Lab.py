@@ -12,11 +12,11 @@ class Car:
         self.Model = model
         self.Year = year
 
-    def display_info():
+    def display_info(self):
         print("Car details:")
-        print("Make: ", Car.Make)
-        print("Model: ", Car.Model)
-        print("Year: ", Car.Year)
+        print("Make: ", self.Make)
+        print("Model: ", self.Model)
+        print("Year: ", self.Year)
 
 car0 = Car("Toyota", "Corolla", 2020)
 car0.display_info()
@@ -192,3 +192,34 @@ print()
 # Exercise 07
 print("Exercise 7")
 class PhoneBook: 
+    contacts = {}
+    def __init__(self):
+        pass
+
+    def add_contact(self,name , number):
+        self.contacts.update({name : number})
+        print("Added contact: ",name ,"->" ,number)
+    
+    def find_contact(self , name):
+        if name in self.contacts:
+            print(f"{name}'s number: ", self.contacts[name])
+        else:
+            print(name ,"not found in phone book.")
+contact = PhoneBook()
+contact.add_contact("John", "123-456-7890")
+contact.add_contact("Jane", "987-654-3210")
+contact.find_contact("John")
+contact.find_contact("Alice")
+
+print()
+
+#Exercise 8
+print("Exercise 8")
+class SportsLeague:
+    teams = {}
+    def add_team(self , team_name):
+        if team_name not in self.teams:
+            print(f"Team '{team_name}' added.")
+            self.teams.update(team_name)
+        else:
+            print(f"Team '{team_name}' is already exited.")
