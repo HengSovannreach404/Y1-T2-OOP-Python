@@ -214,12 +214,105 @@ contact.find_contact("Alice")
 print()
 
 #Exercise 8
+
+
 print("Exercise 8")
 class SportsLeague:
     teams = {}
-    def add_team(self , team_name):
+    def __init__(self):
+        pass
+    def add_team(self, team_name):
+        if team_name in self.teams:
+            print(f"Team '{team_name}' already exists.")
+            return
+        self.teams[team_name] = []
+        print(f"Team '{team_name}' added.")
+    
+
+    def add_player(self, team_name , player_id , player_name , position):
         if team_name not in self.teams:
-            print(f"Team '{team_name}' added.")
-            self.teams.update(team_name)
-        else:
-            print(f"Team '{team_name}' is already exited.")
+            print(f"Error: Team '{team_name}' does not exist.")
+            return
+    
+        if any(player['id'] == player_id for player in self.teams[team_name]):
+            print(f"Player with ID {player_id} already exists in team '{team_name}'.")
+            return
+        player = {
+            'id': player_id,
+            'name': player_name,
+            'position': position
+        }
+        self.teams[team_name].append(player)
+        print(f"Player '{player_name}' added to team '{team_name}'.")
+    
+    def view_team(self, team_name):
+        if team_name not in self.teams:
+            print(f"Team '{team_name}' does not exist.")
+            return
+
+        players = self.teams[team_name]
+        if not players:
+            print(f"Team '{team_name}' has no players.")
+            return
+
+        print(f"Team '{team_name}' players:")
+        for player in players:
+            print(f"ID: {player['id']}, Name: {player['name']}, Position: {player['position']}")
+    
+    def update_player(self, team_name, player_id, new_name=None, new_position=None):
+        if team_name not in self.teams:
+            print(f"Team '{team_name}' does not exist.")
+            return
+
+        for player in self.teams[team_name]:
+            if player['id'] == player_id:
+                if new_name is not None:
+                    player['name'] = new_name
+                if new_position is not None:
+                    player['position'] = new_position
+                print(f"Player ID {player_id} updated in team '{team_name}'.")
+                return
+
+        print(f"Player with ID {player_id} not found in team '{team_name}'.")
+    
+    def remove_player(self, team_name, player_id):
+        if team_name not in self.teams:
+            print(f"Team '{team_name}' does not exist.")
+            return
+
+        players = self.teams[team_name]
+        # Using enumerate() to find and remove by index
+        for index, player in enumerate(players):
+            if player['id'] == player_id:
+                removed_name = player['name']
+                del players[index]
+                print(f"Player '{removed_name}' removed from team '{team_name}'.")
+                return
+
+        print(f"Player with ID {player_id} not found in team '{team_name}'.")
+    
+
+
+league = SportsLeague()
+
+league.add_team("Tigers")
+league.add_team("Sharks")
+
+league.add_player("Tigers", 1, "John Doe", "Forward")
+league.add_player("Tigers", 2, "Alice Smith", "Goalkeeper")
+league.add_player("Sharks", 3, "Bob Brown", "Defender")
+
+print()
+print("Viewing teams:")
+league.view_team("Tigers")
+league.view_team("Sharks")
+
+print()
+print("Updating player info:")
+league.update_player("Tigers", 1, new_name="Johnny Doe", new_position="Striker")
+league.view_team("Tigers")
+
+print()
+print("Removing a player:")
+league.remove_player("Tigers", 2)
+league.view_team("Tigers")
