@@ -101,7 +101,7 @@ print("\n\n")
 
 # III. Polymorphism 
 # Exercise 4
-print("II. Inheritance")
+print("III. Polymorphism")
 print("4. Employee Salary Calculation \n")
 class Employee :
         def __init__(self,name,base_salary):
